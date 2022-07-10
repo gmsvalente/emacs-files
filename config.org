@@ -1,6 +1,6 @@
 #+TITLE: My emacs initialization
 #+AUTHOR: Gustavo V.
-#+MD: READMe.md
+
 * init
 #+begin_src emacs-lisp
   (setq backup-directory-alist `((".*" . ".backup~/")))
@@ -19,9 +19,10 @@
 #+end_src
 * Export to README.md
 #+begin_src emacs-lisp
-  (find-file config-file)
-  (switch-to-buffer "config.org")
-  (org-md-export-as-markdown)
-  (switch-to-buffer "*Org MD Export*")
-  (write-file "~/.emacs.d/README.md")
+  (defun config.org->README.md ()
+    (find-file config-file)
+    (switch-to-buffer "config.org")
+    (org-md-export-as-markdown)
+    (switch-to-buffer "*Org MD Export*")
+    (write-file "~/.emacs.d/README.md"))
 #+end_src
