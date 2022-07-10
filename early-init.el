@@ -31,21 +31,11 @@
 		(font 		. "Noto Sans Mono")))
 
 (setq file-name-handler-alist nil
-      frame-inhibit-implied-resize t
-      package-enable-at-startup nil)
-
-(defun before-init-fn ()
-  "My startup-function, add it to 'emacs-startup-hook."
-  (message "*** Hello %s ***" (user-login-name))
-  (message "*** Creating .el files ***")
-  (require 'org)
-  (org-babel-load-file ".emacs.d/init.org")
-  (message "*** Emacs initialization in %.3f seconds with %d garbage collections ***"
-	   (float-time (time-subtract after-init-time before-init-time))
-	   gcs-done))
+      frame-inhibit-implied-resize t)
 
 (defun after-init-fn ()
-  "Return gc original values"
+  "Say hello and return gc original values"
+  (message "*** Hello %s ***" (user-login-name))
   (message "*** Emacs loaded in %.3f seconds with %d garbage collections ***"
 	   (float-time (time-subtract after-init-time before-init-time))
 	   gcs-done)
@@ -55,7 +45,6 @@
   (message "*** Setting gc-cons-percentage back to %.2f ***" gc-cons-percentage))
 
 
-(add-hook 'before-init-hook 'before-init-fn)
 (add-hook 'after-init-hook 'after-init-fn)
 
 (provide 'early-init)
