@@ -1,0 +1,27 @@
+#+TITLE: My emacs initialization
+#+AUTHOR: Gustavo V.
+#+MD: READMe.md
+* init
+#+begin_src emacs-lisp
+  (setq backup-directory-alist `((".*" . ".backup~/")))
+  (auto-compression-mode t)
+  ;; include melpa to package-archives
+#+end_src
+* Packages
+** Themes
+#+begin_src emacs-lisp
+  (use-package spacemacs-theme
+    :ensure t
+    :defer nil
+    :config
+    (load-theme 'spacemacs-dark 'no-confirm))
+
+#+end_src
+* Export to README.md
+#+begin_src emacs-lisp
+  (find-file config-file)
+  (switch-to-buffer "config.org")
+  (org-md-export-as-markdown)
+  (switch-to-buffer "*Org MD Export*")
+  (write-file "~/.emacs.d/README.md")
+#+end_src
