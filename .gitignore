@@ -1,0 +1,5 @@
+.backup~
+auto-save-list/
+elpa/
+*.el
+!early-init.el

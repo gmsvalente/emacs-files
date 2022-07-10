@@ -1,3 +1,5 @@
 * My emacs initialization files
 ** early-init.el
+This files read init.org and create the .el files from '''org-babel-load-file'''
 ** init.org
+Literate file where all my .el files are created.
