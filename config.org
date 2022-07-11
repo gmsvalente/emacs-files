@@ -1,12 +1,22 @@
 #+TITLE: My emacs initialization
 #+AUTHOR: Gustavo V.
 
-* init
+* custom-file
+#+begin_src emacs-lisp
+  (defvar custom-file-path (expand-file-name "custom.el" user-emacs-directory))
+  (when (file-exists-p custom-file-path)
+    (setq custom-file custom-file-path)
+    (load custom-file))
+#+end_src
+
+* globals
 #+begin_src emacs-lisp
   (setq backup-directory-alist `((".*" . ".backup~/")))
-  (auto-compression-mode t)
-  ;; include melpa to package-archives
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
 #+end_src
+
 * Packages
 ** Themes
 #+begin_src emacs-lisp
@@ -16,6 +26,40 @@
     :config
     (load-theme 'spacemacs-dark 'no-confirm))
 
+  (use-package all-the-icons
+    :ensure t)
+#+end_src
+** yasnippets
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (yas-global-mode t))
+#+end_src
+** Dashboard
+Prevent dashboard warning about loaded banner by creating init-dashboard use-package.
+#+begin_src emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :init
+    (setq dashboard-startup-banner (expand-file-name "assets/images/figo-green.png" user-emacs-directory))
+    (setq dashboard-set-heading-icons t)
+    (setq dashboard-set-file-icons t)
+    (setq dashboard-items '((recents . 15)))
+    :config
+    (dashboard-modify-heading-icons
+     '((recents . "file-text"))))
+
+  (use-package init-dashboard
+    :after 'dashboard
+    :init
+    (dashboard-setup-startup-hook))
+#+end_src
+** Org
+#+begin_src emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :hook (org-mode . org-bullets-mode))
 #+end_src
 * Export to README.md
 #+begin_src emacs-lisp
