@@ -31,7 +31,8 @@
 		(font 		. "Noto Sans Mono")))
 
 (setq file-name-handler-alist nil
-      frame-inhibit-implied-resize t)
+      frame-inhibit-implied-resize t
+      package-enable-at-startup nil)
 
 (defun after-init-fn ()
   "Say hello and return gc original values"
