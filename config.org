@@ -29,6 +29,14 @@
   (use-package all-the-icons
     :ensure t)
 #+end_src
+** yaml-mode
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))))
+#+end_src
+
 ** yasnippets
 #+begin_src emacs-lisp
   (use-package yasnippet
