@@ -1,51 +1,47 @@
-#+TITLE: My emacs initialization
+#+TITLE: My emacs configuration file
 #+AUTHOR: Gustavo V.
+#+STARTUP: fold
 
-* custom-file
+These emacs configuration uses literate programming to create my emacs config file.
+All the configuration are create into one file config.el which is automatic loaded.
+
+* Global Settings
+** custom-file
+The custom-file is a variable bounded to custom.el file and is auto-populated by emacs used for storing customization information.
 #+begin_src emacs-lisp
   (defvar custom-file-path (expand-file-name "custom.el" user-emacs-directory))
   (when (file-exists-p custom-file-path)
     (setq custom-file custom-file-path)
     (load custom-file))
 #+end_src
-
-* globals
+** backup directory
+Store the backup files *~ into .backup~ folder.
 #+begin_src emacs-lisp
   (setq backup-directory-alist `((".*" . ".backup~/")))
+#+end_src
+
+* UI
+** emacs tweaks
+Remove some ui modes.
+#+begin_src emacs-lisp
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
 #+end_src
-
-* Packages
-** Themes
+** themes
+Instal themes.
 #+begin_src emacs-lisp
-  (use-package spacemacs-theme
-    :ensure t
-    :defer nil
-    :config
-    (load-theme 'spacemacs-dark 'no-confirm))
-
-  (use-package all-the-icons
-    :ensure t)
-#+end_src
-** yaml-mode
-#+begin_src emacs-lisp
-  (use-package yaml-mode
-    :ensure t
-    :config
-    (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
+  (use-package zenburn-theme :ensure t)
+  (use-package spacemacs-theme :ensure t)
+  (use-package all-the-icons  :ensure t)
+  (load-theme 'zenburn 'no-confirm)
 #+end_src
 
-** yasnippets
-#+begin_src emacs-lisp
-  (use-package yasnippet
-    :ensure t
-    :config
-    (yas-global-mode t))
-#+end_src
-** Dashboard
+* UX
+** dashboard
+Use dashboard to fast select files and projects.
 Prevent dashboard warning about loaded banner by creating init-dashboard use-package.
+You can create an use-package that is not associated to any package.
 #+begin_src emacs-lisp
   (use-package dashboard
     :ensure t
@@ -63,13 +59,54 @@ Prevent dashboard warning about loaded banner by creating init-dashboard use-pac
     :init
     (dashboard-setup-startup-hook))
 #+end_src
-** Org
+** yasnippets
+Insert pre-formatted codes.
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (yas-global-mode 1))
+
+  (use-package yasnippet-snippets
+    :ensure t)
+#+end_src
+
+* Programming
+** yaml
+Yaml mode.
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
+#+end_src
+
+* Productivity
+Use for create a menu for which keys to select.
+** whick-key
+#+begin_src emacs-lisp
+  (use-package which-key
+    :ensure t
+    :init
+    (which-key-mode))
+
+#+end_src
+** org
+Use org-mode for enhance your productivity.
 #+begin_src emacs-lisp
   (use-package org-bullets
     :ensure t
     :hook (org-mode . org-bullets-mode))
 #+end_src
+** magit
+Magit is really a git porcelain.
+#+begin_src emacs-lisp
+  (use-package magit
+    :ensure t)
+#+end_src
+
 * Export to README.md
+Export this config.org to a README.md
 #+begin_src emacs-lisp
   (defun config.org->README.md ()
     (find-file config-file)
