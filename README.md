@@ -1,34 +1,36 @@
 
 # Table of Contents
 
-1.  [Global Settings](#org36007d8)
-    1.  [custom-file](#orge1d4c1e)
-    2.  [backup directory](#orge70fb76)
-2.  [UI](#org2db3dca)
-    1.  [emacs tweaks](#org7cbbfaa)
-    2.  [themes](#orgefa96e0)
-3.  [UX](#orgcefcb8e)
-    1.  [dashboard](#orgfe9b5eb)
-    2.  [yasnippets](#orgf95e77d)
-4.  [Programming](#org1ea3dc1)
-    1.  [yaml](#org3b31de2)
-5.  [Productivity](#org806347f)
-    1.  [whick-key](#org238842f)
-    2.  [org](#orge6f024b)
-    3.  [ssh-agency](#org71a0b6f)
-    4.  [magit](#org65bacb9)
-6.  [Export to README.md](#orgc2c467f)
+1.  [Global Settings](#orge35fb8c)
+    1.  [custom-file](#org699945c)
+    2.  [backup directory](#org655b77e)
+2.  [UI](#org746175a)
+    1.  [emacs tweaks](#org6f8af4d)
+    2.  [themes](#orge02f72c)
+3.  [UX](#org74311e6)
+    1.  [dashboard](#org42fe8a3)
+    2.  [yasnippets](#org18c44b4)
+    3.  [paredit](#org48798ef)
+4.  [Programming](#org9d1a5d4)
+    1.  [yaml](#orgd1c698f)
+    2.  [clojure](#org92ff3ef)
+5.  [Productivity](#orgb1d8802)
+    1.  [whick-key](#org5705ab0)
+    2.  [org](#org2a04e3b)
+    3.  [ssh-agency](#org2c9c32d)
+    4.  [magit](#org53d7e9b)
+6.  [Export to README.md](#org4eb63c1)
 
 These emacs configuration uses literate programming to create my emacs config file.
 All the configuration are create into one file config.el which is automatic loaded.
 
 
-<a id="org36007d8"></a>
+<a id="orge35fb8c"></a>
 
 # Global Settings
 
 
-<a id="orge1d4c1e"></a>
+<a id="org699945c"></a>
 
 ## custom-file
 
@@ -40,7 +42,7 @@ The custom-file is a variable bounded to custom.el file and is auto-populated by
       (load custom-file))
 
 
-<a id="orge70fb76"></a>
+<a id="org655b77e"></a>
 
 ## backup directory
 
@@ -49,12 +51,12 @@ Store the backup files \*~ into .backup~ folder.
     (setq backup-directory-alist `((".*" . ".backup~/")))
 
 
-<a id="org2db3dca"></a>
+<a id="org746175a"></a>
 
 # UI
 
 
-<a id="org7cbbfaa"></a>
+<a id="org6f8af4d"></a>
 
 ## emacs tweaks
 
@@ -65,7 +67,7 @@ Remove some ui modes.
     (scroll-bar-mode -1)
 
 
-<a id="orgefa96e0"></a>
+<a id="orge02f72c"></a>
 
 ## themes
 
@@ -77,12 +79,12 @@ Instal themes.
     (load-theme 'zenburn 'no-confirm)
 
 
-<a id="orgcefcb8e"></a>
+<a id="org74311e6"></a>
 
 # UX
 
 
-<a id="orgfe9b5eb"></a>
+<a id="org42fe8a3"></a>
 
 ## dashboard
 
@@ -107,7 +109,7 @@ You can create an use-package that is not associated to any package.
       (dashboard-setup-startup-hook))
 
 
-<a id="orgf95e77d"></a>
+<a id="org18c44b4"></a>
 
 ## yasnippets
 
@@ -122,12 +124,21 @@ Insert pre-formatted codes.
       :ensure t)
 
 
-<a id="org1ea3dc1"></a>
+<a id="org48798ef"></a>
+
+## paredit
+
+    (use-package paredit
+      :ensure t
+      :hook (prog-mode . paredit-mode))
+
+
+<a id="org9d1a5d4"></a>
 
 # Programming
 
 
-<a id="org3b31de2"></a>
+<a id="orgd1c698f"></a>
 
 ## yaml
 
@@ -139,14 +150,19 @@ Yaml mode.
       (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
 
 
-<a id="org806347f"></a>
+<a id="org92ff3ef"></a>
+
+## clojure
+
+
+<a id="orgb1d8802"></a>
 
 # Productivity
 
 Use for create a menu for which keys to select.
 
 
-<a id="org238842f"></a>
+<a id="org5705ab0"></a>
 
 ## whick-key
 
@@ -156,7 +172,7 @@ Use for create a menu for which keys to select.
       (which-key-mode))
 
 
-<a id="orge6f024b"></a>
+<a id="org2a04e3b"></a>
 
 ## org
 
@@ -167,7 +183,7 @@ Use org-mode for enhance your productivity.
       :hook (org-mode . org-bullets-mode))
 
 
-<a id="org71a0b6f"></a>
+<a id="org2c9c32d"></a>
 
 ## ssh-agency
 
@@ -175,7 +191,7 @@ Use org-mode for enhance your productivity.
       :ensure t)
 
 
-<a id="org65bacb9"></a>
+<a id="org53d7e9b"></a>
 
 ## magit
 
@@ -185,7 +201,7 @@ Magit is really a git porcelain.
       :ensure t)
 
 
-<a id="orgc2c467f"></a>
+<a id="org4eb63c1"></a>
 
 # Export to README.md
 
