@@ -36,6 +36,13 @@ Instal themes.
   (use-package all-the-icons  :ensure t)
   (load-theme 'zenburn 'no-confirm)
 #+end_src
+** rainbow-delimiters
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :hook ((lisp-interaction-mode lisp-mode emacs-lisp-mode clojure-mode prog-mode) . rainbow-delimiters))
+
+#+end_src
 
 * UX
 ** dashboard
@@ -74,7 +81,8 @@ Insert pre-formatted codes.
 #+begin_src emacs-lisp
   (use-package paredit
     :ensure t
-    :hook (prog-mode . paredit-mode))
+    :hook ((lisp-interaction-mode prog-mode lisp-mode emacs-lisp-mode) . enable-paredit-mode))
+
 #+end_src
 
 * Programming
