@@ -4,3 +4,4 @@ elpa/
 config.el
 custom.el
 recentf
+transient/
