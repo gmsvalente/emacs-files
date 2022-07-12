@@ -1,20 +1,38 @@
 
 # Table of Contents
 
-1.  [custom-file](#orgd92cb04)
-2.  [globals](#orgf3e8592)
-3.  [Packages](#org19b48c9)
-    1.  [Themes](#org617c4e2)
-    2.  [yasnippets](#org228cb91)
-    3.  [Dashboard](#org796e23c)
-    4.  [Org](#orgd95712e)
-4.  [Export to README.md](#org34168b3)
+1.  [Global Settings](#org36007d8)
+    1.  [custom-file](#orge1d4c1e)
+    2.  [backup directory](#orge70fb76)
+2.  [UI](#org2db3dca)
+    1.  [emacs tweaks](#org7cbbfaa)
+    2.  [themes](#orgefa96e0)
+3.  [UX](#orgcefcb8e)
+    1.  [dashboard](#orgfe9b5eb)
+    2.  [yasnippets](#orgf95e77d)
+4.  [Programming](#org1ea3dc1)
+    1.  [yaml](#org3b31de2)
+5.  [Productivity](#org806347f)
+    1.  [whick-key](#org238842f)
+    2.  [org](#orge6f024b)
+    3.  [ssh-agency](#org71a0b6f)
+    4.  [magit](#org65bacb9)
+6.  [Export to README.md](#orgc2c467f)
+
+These emacs configuration uses literate programming to create my emacs config file.
+All the configuration are create into one file config.el which is automatic loaded.
 
 
+<a id="org36007d8"></a>
 
-<a id="orgd92cb04"></a>
+# Global Settings
 
-# custom-file
+
+<a id="orge1d4c1e"></a>
+
+## custom-file
+
+The custom-file is a variable bounded to custom.el file and is auto-populated by emacs used for storing customization information.
 
     (defvar custom-file-path (expand-file-name "custom.el" user-emacs-directory))
     (when (file-exists-p custom-file-path)
@@ -22,50 +40,55 @@
       (load custom-file))
 
 
-<a id="orgf3e8592"></a>
+<a id="orge70fb76"></a>
 
-# globals
+## backup directory
+
+Store the backup files \*~ into .backup~ folder.
 
     (setq backup-directory-alist `((".*" . ".backup~/")))
+
+
+<a id="org2db3dca"></a>
+
+# UI
+
+
+<a id="org7cbbfaa"></a>
+
+## emacs tweaks
+
+Remove some ui modes.
+
     (menu-bar-mode -1)
     (tool-bar-mode -1)
     (scroll-bar-mode -1)
 
 
-<a id="org19b48c9"></a>
+<a id="orgefa96e0"></a>
 
-# Packages
+## themes
 
+Instal themes.
 
-<a id="org617c4e2"></a>
-
-## Themes
-
-    (use-package spacemacs-theme
-      :ensure t
-      :defer nil
-      :config
-      (load-theme 'spacemacs-dark 'no-confirm))
-    
-    (use-package all-the-icons
-      :ensure t)
+    (use-package zenburn-theme :ensure t)
+    (use-package spacemacs-theme :ensure t)
+    (use-package all-the-icons  :ensure t)
+    (load-theme 'zenburn 'no-confirm)
 
 
-<a id="org228cb91"></a>
+<a id="orgcefcb8e"></a>
 
-## yasnippets
-
-    (use-package yasnippet
-      :ensure t
-      :config
-      (yas-global-mode t))
+# UX
 
 
-<a id="org796e23c"></a>
+<a id="orgfe9b5eb"></a>
 
-## Dashboard
+## dashboard
 
+Use dashboard to fast select files and projects.
 Prevent dashboard warning about loaded banner by creating init-dashboard use-package.
+You can create an use-package that is not associated to any package.
 
     (use-package dashboard
       :ensure t
@@ -84,18 +107,89 @@ Prevent dashboard warning about loaded banner by creating init-dashboard use-pac
       (dashboard-setup-startup-hook))
 
 
-<a id="orgd95712e"></a>
+<a id="orgf95e77d"></a>
 
-## Org
+## yasnippets
+
+Insert pre-formatted codes.
+
+    (use-package yasnippet
+      :ensure t
+      :config
+      (yas-global-mode 1))
+    
+    (use-package yasnippet-snippets
+      :ensure t)
+
+
+<a id="org1ea3dc1"></a>
+
+# Programming
+
+
+<a id="org3b31de2"></a>
+
+## yaml
+
+Yaml mode.
+
+    (use-package yaml-mode
+      :ensure t
+      :config
+      (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
+
+
+<a id="org806347f"></a>
+
+# Productivity
+
+Use for create a menu for which keys to select.
+
+
+<a id="org238842f"></a>
+
+## whick-key
+
+    (use-package which-key
+      :ensure t
+      :init
+      (which-key-mode))
+
+
+<a id="orge6f024b"></a>
+
+## org
+
+Use org-mode for enhance your productivity.
 
     (use-package org-bullets
       :ensure t
       :hook (org-mode . org-bullets-mode))
 
 
-<a id="org34168b3"></a>
+<a id="org71a0b6f"></a>
+
+## ssh-agency
+
+    (use-package ssh-agency
+      :ensure t)
+
+
+<a id="org65bacb9"></a>
+
+## magit
+
+Magit is really a git porcelain.
+
+    (use-package magit
+      :ensure t)
+
+
+<a id="orgc2c467f"></a>
 
 # Export to README.md
+
+Export this config.org to a README.md
 
     (defun config.org->README.md ()
       (find-file config-file)
