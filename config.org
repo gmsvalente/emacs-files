@@ -70,6 +70,12 @@ Insert pre-formatted codes.
   (use-package yasnippet-snippets
     :ensure t)
 #+end_src
+** paredit
+#+begin_src emacs-lisp
+  (use-package paredit
+    :ensure t
+    :hook (prog-mode . paredit-mode))
+#+end_src
 
 * Programming
 ** yaml
@@ -80,7 +86,7 @@ Yaml mode.
     :config
     (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
 #+end_src
-
+** clojure
 * Productivity
 Use for create a menu for which keys to select.
 ** whick-key
@@ -110,6 +116,7 @@ Magit is really a git porcelain.
   (use-package magit
     :ensure t)
 #+end_src
+
 
 * Export to README.md
 Export this config.org to a README.md
