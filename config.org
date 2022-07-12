@@ -98,6 +98,12 @@ Use org-mode for enhance your productivity.
     :ensure t
     :hook (org-mode . org-bullets-mode))
 #+end_src
+** ssh-agency
+#+begin_src emacs-lisp
+  (use-package ssh-agency
+    :ensure t)
+#+end_src
+
 ** magit
 Magit is really a git porcelain.
 #+begin_src emacs-lisp
