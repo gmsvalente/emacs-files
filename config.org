@@ -56,6 +56,39 @@ Use rainbow-delimiters to better see your parentheses.
     (rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
     (rainbow-delimiters-depth-8-face ((t (:foreground "sienna1")))))
 #+end_src
+** linum-mode
+#+begin_src emacs-lisp
+  (global-linum-mode t)
+  (defface linum-padding
+    `((t :inherit linum
+	 :foreground ,(face-attribute 'linum :foreground nil t)))
+    "Face for displaying leading zeroes"
+    :group 'linum)
+
+  (defface linum-current-line
+    '((t :inherit linum
+	 :foreground "green"))
+    "Face for > current line"
+    :group 'linum)
+
+  (defvar linum-current-line 1 "Current line at cursor")
+
+  (defadvice linum-update (before active-linum-update activate)
+    (setq linum-current-line (line-number-at-pos)))
+
+  (defun linum-format-fn (line)
+    (let ((width (length (number-to-string (count-lines (point-min) (point-max))))))
+      (concat
+       (propertize " " 'face 'linum-padding)
+       (propertize (make-string (- width (length (number-to-string line))) ?0) 'face 'linum-padding)
+       (propertize (number-to-string line) 'face 'linum)
+       (if (= line linum-current-line)
+	   (propertize ">" 'face 'linum-current-line)
+	 (propertize " " 'face 'linum-padding)))))
+
+  (setq linum-format 'linum-format-fn)
+#+end_src
+
 * UX
 ** dashboard
 Use dashboard to fast select files and projects.
@@ -96,16 +129,22 @@ Auto close your parentheses
     :hook ((lisp-interaction-mode prog-mode lisp-mode emacs-lisp-mode) . enable-paredit-mode))
 
 #+end_src
-* Programming
-** yaml
-Yaml mode.
+** ivy
 #+begin_src emacs-lisp
-  (use-package yaml-mode
+  (use-package ivy
     :ensure t
-    :config
-    (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
+    :init
+    (ivy-mode t))
+
 #+end_src
-** clojure
+** flycheck
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :init
+    (global-flycheck-mode t))
+#+end_src
+
 * Productivity
 Use for create a menu for which keys to select.
 ** whick-key
@@ -135,11 +174,44 @@ Magit is really a git porcelain.
   (use-package magit
     :ensure t)
 #+end_src
+* Programming
+** yaml
+Yaml mode.
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
+#+end_src
+** clojure
+#+begin_src emacs-lisp
+  (use-package clojure-mode
+    :ensure t
+    :config
+    (require 'flycheck-clj-kondo))
+
+  (use-package cider
+    :ensure t)
+
+  (use-package flycheck-clj-kondo
+    :ensure t)
+
+
+  (defun clj-refactor-hook-fn ()
+    (clj-refactor-mode 1)
+    ;(yas-minor-mode 1)
+    )
+
+  (use-package clj-refactor
+    :ensure t
+    :hook (clojure-mode . clj-refactor-hook-fn))
+#+end_src
+
 
 
 * Export to README.md
 Export this config.org to a README.md
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle nil
   (defun config.org->README.md ()
     (find-file config-file)
     (switch-to-buffer "config.org")
