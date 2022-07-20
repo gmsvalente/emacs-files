@@ -206,12 +206,16 @@ Yaml mode.
     :ensure t
     :hook (clojure-mode . clj-refactor-hook-fn))
 #+end_src
-
-
+** slime
+#+begin_src emacs-lisp
+  (setq inferior-lisp-program "sbcl")
+  (load (expand-file-name "~/.quicklisp/slime-helper.el"))
+#+end_src
 
 * Export to README.md
-Export this config.org to a README.md
-#+begin_src emacs-lisp :tangle nil
+Export this config.org to a README.md.
+<<disabled>>
+#+begin_src emacs-lisp :tangle no
   (defun config.org->README.md ()
     (find-file config-file)
     (switch-to-buffer "config.org")
