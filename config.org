@@ -4,7 +4,7 @@
 
 These emacs configuration uses literate programming to create my emacs config file.
 All the configuration are create into one file config.el which is automatic loaded.
-
+~WIP~
 * Global Settings
 ** custom-file
 The custom-file is a variable bounded to custom.el file and is auto-populated by emacs used for storing customization information.
