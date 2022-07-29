@@ -126,7 +126,7 @@ Auto close your parentheses
 #+begin_src emacs-lisp
   (use-package paredit
     :ensure t
-    :hook ((lisp-interaction-mode prog-mode lisp-mode emacs-lisp-mode) . enable-paredit-mode))
+    :hook ((lisp-interaction-mode lisp-mode emacs-lisp-mode) . enable-paredit-mode))
 
 #+end_src
 ** ivy
@@ -204,11 +204,9 @@ Yaml mode.
   (use-package flycheck-clj-kondo
     :ensure t)
 
-
   (defun clj-refactor-hook-fn ()
     (clj-refactor-mode 1)
-    ;(yas-minor-mode 1)
-    )
+    (yas-minor-mode 1)
 
   (use-package clj-refactor
     :ensure t
